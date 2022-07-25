@@ -17,9 +17,9 @@ class _Svg {
   final String iconAccount = 'assets/images/svg/account.svg';
   final String iconPassword = 'assets/images/svg/password.svg';
   final String iconHome = 'assets/images/svg/home.svg';
-  final String iconHomeFull = 'assets/images/svg/homefull.svg';
+  final String iconHomeBold = 'assets/images/svg/home-bold.svg';
   final String iconSetting = 'assets/images/svg/setting.svg';
-  final String iconSettingFull = 'assets/images/svg/settingfull.svg';
+  final String iconSettingBolds = 'assets/images/svg/setting-bold.svg';
   final String iconList = 'assets/images/svg/list.svg';
   final String iconGrid = 'assets/images/svg/grid.svg';
   final String iconFilter = 'assets/images/svg/filter.svg';

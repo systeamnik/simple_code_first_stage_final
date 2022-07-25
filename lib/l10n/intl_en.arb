@@ -4,6 +4,7 @@
     "login": "Login",
     "password": "Password",
     "signIn": "Sign In",
+    "logout": "Logout",
     "good": "Good",
     "language": "Language",
     "english": "English",

@@ -35,26 +35,16 @@ class BlocProducts extends Bloc<EventBlocProducts, StateBlocProducts> {
     List<DataProducts> globalSort(String categort, int rating) {
       List<DataProducts> myList = full.toList();
       if (categort != 'All category') {
-        print("All");
-        myList =
-            full.where((thing) => thing.category!.contains(categort)).toList();
+        myList = myList
+            .where((thing) => thing.category!.contains(categort))
+            .toList();
       }
       if (rating != 0) {
-        print("0");
-
-        myList = full
+        myList = myList
             .where((thing) => thing.rating!.rate!.toInt() == rating)
             .toList();
       }
       return myList;
-
-      // if (categort != 'All category') {
-      //   myList.where((thing) => thing.category!.contains(categort)).toList();
-      // }
-      // if (rating != 0) {
-      //   myList.where((thing) => thing.rating!.rate!.toInt() == rating).toList();
-      // }
-      // return myList;
     }
 
     on<EventFilterCategory>((event, emit) {
@@ -63,25 +53,7 @@ class BlocProducts extends Bloc<EventBlocProducts, StateBlocProducts> {
       int selectedRate = event.rating.toInt();
       categories = selectedCategory;
 
-      print("bloc categort: $selectedCategory");
-
-      // List<DataProducts> myList = full
-      //     .where((thing) => thing.category!.contains(selectedCategory))
-      //     .toList();
-
       List<DataProducts> myList = globalSort(selectedCategory, selectedRate);
-      // List<DataProducts> myList = full.toList();
-
-      // if (selectedCategory != 'All category') {
-      //   myList
-      //       .where((thing) => thing.category!.contains(selectedCategory))
-      //       .toList();
-      // }
-      // if (selectedRate != 0) {
-      //   myList
-      //       .where((thing) => thing.rating!.rate!.toInt() == selectedRate)
-      //       .toList();
-      // }
 
       myList.sort((DataProducts a, DataProducts b) {
         int indexOfCarInA = a.category!.indexOf(selectedCategory);
@@ -94,10 +66,6 @@ class BlocProducts extends Bloc<EventBlocProducts, StateBlocProducts> {
         }
         return 1;
       });
-
-      // myList.map((e) {
-      //   print(e.category);
-      // });
 
       filtered.clear();
       filtered.addAll(myList);
@@ -112,7 +80,7 @@ class BlocProducts extends Bloc<EventBlocProducts, StateBlocProducts> {
       }
       if (filtered.isEmpty) {
         emit(
-          StateProductsError("Список не готов"),
+          StateProductsError("Нет товаров"),
         );
         return;
       }
@@ -126,19 +94,8 @@ class BlocProducts extends Bloc<EventBlocProducts, StateBlocProducts> {
       emit(StateProductsLoading());
       int selectedRate = event.rating.toInt();
       String selectedCategory = event.categoty;
-      print("rating: $selectedRate");
 
       List<DataProducts> myList = globalSort(selectedCategory, selectedRate);
-
-      // full.sort(((a, b) => a.rating!.rate!.compareTo(b.rating!.rate!)));
-      // print(full);
-      // full.sort((a, b) => a.rating!.rate!.compareTo(b.rating!.rate!));
-      // var firstList = [1, 2, 3, 4, 5, 6];
-      // full.firstWhere((i) => i.rating!.rate! < rating);
-      // print(firstList.firstWhere((i) => i < 6));
-
-      // List<DataProducts> myList =
-      //     full.where((thing) => thing.rating!.rate!.compareTo(rating)).toList();
 
       myList.sort((DataProducts a, DataProducts b) {
         int indexOfCarInA = a.category!.indexOf(selectedCategory);
@@ -164,7 +121,7 @@ class BlocProducts extends Bloc<EventBlocProducts, StateBlocProducts> {
       }
       if (filtered.isEmpty) {
         emit(
-          StateProductsError("Список не готов"),
+          StateProductsError("Нет товаров"),
         );
         return;
       }

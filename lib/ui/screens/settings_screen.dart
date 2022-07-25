@@ -1,5 +1,7 @@
+import 'package:first_stage_final/constants/app_styles.dart';
 import 'package:first_stage_final/ui/app_widgets/navbar_title_widget.dart';
 import 'package:first_stage_final/ui/app_widgets/bottom_navbar_widget.dart';
+import 'package:first_stage_final/ui/screens/login_screen/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:first_stage_final/constants/app_colors.dart';
@@ -73,6 +75,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       },
                     ),
                   ],
+                ),
+                TextButton(
+                  onPressed: () async {
+                    await context.read<RepoSettings>().logout();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginScreen()),
+                    );
+                  },
+                  child: Text(
+                    S.of(context).logout,
+                    style: AppStyles.s14w500.copyWith(
+                      color: AppColors.primaryText,
+                    ),
+                  ),
                 ),
               ],
             ),

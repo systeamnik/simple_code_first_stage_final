@@ -54,13 +54,11 @@ class ListViewWidget extends StatelessWidget {
               productList[index].price!.toString(),
             ),
             onTap: () {
-              print(index + 1);
-              final id = index + 1;
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => DetailScreen(
-                    id: id,
+                    id: productList[index].id! - 1,
                     productList: productList,
                   ),
                 ),

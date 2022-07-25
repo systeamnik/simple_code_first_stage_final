@@ -44,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "jewelery": MessageLookupByLibrary.simpleMessage("jewelery"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
+        "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "mens": MessageLookupByLibrary.simpleMessage("men\'s clothing"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "productCount": MessageLookupByLibrary.simpleMessage("Total products"),

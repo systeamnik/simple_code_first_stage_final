@@ -315,39 +315,22 @@ class ProductsScreen extends StatelessWidget {
                             );
                           }
                           if (state is StateProductsError) {
-                            return Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Flexible(
-                                  child: Text(state.error),
-                                ),
-                              ],
+                            return Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Flexible(
+                                    child: Text(state.error),
+                                  ),
+                                ],
+                              ),
                             );
                           }
                           if (state is StateProductsData) {
                             if (state.data.isEmpty) {
-                              return SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.60,
-                                child: Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        color: Colors.blue,
-                                      ),
-                                      Image.asset(
-                                        AppAssets.images.noImage,
-                                      ),
-                                      const SizedBox(height: 20),
-                                      Text(
-                                        S.of(context).productsListIsEmpty,
-                                      ),
-                                    ],
-                                  ),
+                              return Center(
+                                child: Text(
+                                  S.of(context).productsListIsEmpty,
                                 ),
                               );
                             } else {

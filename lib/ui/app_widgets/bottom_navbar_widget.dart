@@ -27,7 +27,7 @@ class BottomNavbarWidget extends StatelessWidget {
           activeIcon: Padding(
             padding: const EdgeInsets.only(bottom: 5),
             child: SvgPicture.asset(
-              AppAssets.svg.iconHome,
+              AppAssets.svg.iconHomeBold,
               color: AppColors.primary,
             ),
           ),

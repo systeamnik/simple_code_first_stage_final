@@ -19,7 +19,6 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("object : $id");
     final url = productList[id].image;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
