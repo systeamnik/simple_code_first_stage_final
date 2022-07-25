@@ -58,7 +58,7 @@ class ListViewWidget extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => DetailScreen(
-                    id: productList[index].id! - 1,
+                    id: index,
                     productList: productList,
                   ),
                 ),

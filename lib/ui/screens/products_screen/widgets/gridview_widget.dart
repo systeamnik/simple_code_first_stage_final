@@ -100,12 +100,12 @@ class GridViewWidget extends StatelessWidget {
             ),
           ),
           onTap: () {
-            final id = product.id! - 1;
+            final index = productList.indexOf(product);
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => DetailScreen(
-                  id: id,
+                  id: index,
                   productList: productList,
                 ),
               ),
