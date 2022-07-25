@@ -96,6 +96,10 @@ class ProductsScreen extends StatelessWidget {
                                               isSortDesc.value ? 'desc' : 'asc';
                                           BlocProvider.of<BlocProducts>(context)
                                               .add(EventReadAll(sort));
+
+                                          selectedCategory.value =
+                                              "All category";
+                                          selectedRating.value = 0;
                                         },
                                         icon: ValueListenableBuilder<bool>(
                                           valueListenable: isSortDesc,
