@@ -9,6 +9,7 @@ import 'package:first_stage_final/ui/screens/login_screen/widgets/password_widge
 import 'package:first_stage_final/ui/screens/products_screen/products_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -57,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           (route) => false,
         );
-        await repoSettings.authoriz();
+        await context.read<RepoSettings>().authorize();
       } else {
         showAlertDialog(context);
       }

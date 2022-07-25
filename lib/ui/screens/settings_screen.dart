@@ -79,6 +79,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 TextButton(
                   onPressed: () async {
                     await context.read<RepoSettings>().logout();
+
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(

@@ -17,7 +17,7 @@ class RepoSettings {
     return prefs?.getString('locale');
   }
 
-  Future<bool?> authoriz() async {
+  Future<bool?> authorize() async {
     if (prefs == null) return false;
     return prefs?.setBool('auth', true);
   }

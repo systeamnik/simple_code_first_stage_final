@@ -70,14 +70,6 @@ class BlocProducts extends Bloc<EventBlocProducts, StateBlocProducts> {
       filtered.clear();
       filtered.addAll(myList);
 
-      if (selectedCategory == "All category") {
-        filtered.clear();
-        filtered.addAll(full);
-        emit(
-          StateProductsData(data: filtered),
-        );
-        return;
-      }
       if (filtered.isEmpty) {
         emit(
           StateProductsError("Нет товаров"),
@@ -88,7 +80,6 @@ class BlocProducts extends Bloc<EventBlocProducts, StateBlocProducts> {
         StateProductsData(data: filtered),
       );
     });
-
     // !TODO EventFilterRating
     on<EventFilterRating>((event, emit) {
       emit(StateProductsLoading());
@@ -111,14 +102,6 @@ class BlocProducts extends Bloc<EventBlocProducts, StateBlocProducts> {
       filtered.clear();
       filtered.addAll(myList);
 
-      if (selectedRate == 0) {
-        filtered.clear();
-        filtered.addAll(full);
-        emit(
-          StateProductsData(data: filtered),
-        );
-        return;
-      }
       if (filtered.isEmpty) {
         emit(
           StateProductsError("Нет товаров"),

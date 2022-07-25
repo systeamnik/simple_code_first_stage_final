@@ -15,11 +15,6 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-// void timeout() {
-//   const duration = Duration(days: 1);
-//   Future.delayed(duration).whenComplete(() {});
-// }
-
 class _SplashScreenState extends State<SplashScreen> {
   RepoSettings repoSettings = RepoSettings();
 
@@ -32,16 +27,17 @@ class _SplashScreenState extends State<SplashScreen> {
     repoSettings.init().whenComplete(() async {
       var defaultLocale = const Locale('ru', 'RU');
       final locale = await repoSettings.readLocale();
+      final isAuth = await repoSettings.isAutorized() ?? false;
+
       if (locale == 'en') {
         defaultLocale = const Locale('en');
       }
-      final isAuth = await repoSettings.isAutorized() ?? false;
+
       S.load(defaultLocale).whenComplete(() {
-        // timeout();
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) =>
-                isAuth ? const LoginScreen() : const ProductsScreen(),
+                isAuth ? const ProductsScreen() : const LoginScreen(),
           ),
         );
       });
