@@ -14,17 +14,6 @@ class BlocProducts extends Bloc<EventBlocProducts, StateBlocProducts> {
   BlocProducts({
     required this.repo,
   }) : super(StateProductsInitial()) {
-    List<DataProducts> globalSort(String categort, int rating) {
-      List<DataProducts> myList = full.toList();
-      if (categort != 'All category') {
-        myList.where((thing) => thing.category!.contains(categort)).toList();
-      }
-      if (rating != 0) {
-        myList.where((thing) => thing.rating!.rate!.toInt() == rating).toList();
-      }
-      return myList;
-    }
-
     on<EventReadAll>((event, emit) async {
       emit(StateProductsLoading());
 
@@ -43,6 +32,31 @@ class BlocProducts extends Bloc<EventBlocProducts, StateBlocProducts> {
       );
     });
 
+    List<DataProducts> globalSort(String categort, int rating) {
+      List<DataProducts> myList = full.toList();
+      if (categort != 'All category') {
+        print("All");
+        myList =
+            full.where((thing) => thing.category!.contains(categort)).toList();
+      }
+      if (rating != 0) {
+        print("0");
+
+        myList = full
+            .where((thing) => thing.rating!.rate!.toInt() == rating)
+            .toList();
+      }
+      return myList;
+
+      // if (categort != 'All category') {
+      //   myList.where((thing) => thing.category!.contains(categort)).toList();
+      // }
+      // if (rating != 0) {
+      //   myList.where((thing) => thing.rating!.rate!.toInt() == rating).toList();
+      // }
+      // return myList;
+    }
+
     on<EventFilterCategory>((event, emit) {
       emit(StateProductsLoading());
       String selectedCategory = event.categoty;
@@ -51,19 +65,23 @@ class BlocProducts extends Bloc<EventBlocProducts, StateBlocProducts> {
 
       print("bloc categort: $selectedCategory");
 
-      // List<DataProducts> myList = globalSort(selectedCategory, selectedRate);
-      List<DataProducts> myList = full.toList();
+      // List<DataProducts> myList = full
+      //     .where((thing) => thing.category!.contains(selectedCategory))
+      //     .toList();
 
-      if (selectedCategory != 'All category') {
-        myList
-            .where((thing) => thing.category!.contains(selectedCategory))
-            .toList();
-      }
-      if (selectedRate != 0) {
-        myList
-            .where((thing) => thing.rating!.rate!.toInt() == selectedRate)
-            .toList();
-      }
+      List<DataProducts> myList = globalSort(selectedCategory, selectedRate);
+      // List<DataProducts> myList = full.toList();
+
+      // if (selectedCategory != 'All category') {
+      //   myList
+      //       .where((thing) => thing.category!.contains(selectedCategory))
+      //       .toList();
+      // }
+      // if (selectedRate != 0) {
+      //   myList
+      //       .where((thing) => thing.rating!.rate!.toInt() == selectedRate)
+      //       .toList();
+      // }
 
       myList.sort((DataProducts a, DataProducts b) {
         int indexOfCarInA = a.category!.indexOf(selectedCategory);
@@ -77,21 +95,21 @@ class BlocProducts extends Bloc<EventBlocProducts, StateBlocProducts> {
         return 1;
       });
 
-      myList.map((e) {
-        print(e.category);
-      });
+      // myList.map((e) {
+      //   print(e.category);
+      // });
 
       filtered.clear();
       filtered.addAll(myList);
 
-      // if (selectedCategory == "All category") {
-      //   filtered.clear();
-      //   filtered.addAll(full);
-      //   emit(
-      //     StatePersonsData(data: filtered),
-      //   );
-      //   return;
-      // }
+      if (selectedCategory == "All category") {
+        filtered.clear();
+        filtered.addAll(full);
+        emit(
+          StateProductsData(data: filtered),
+        );
+        return;
+      }
       if (filtered.isEmpty) {
         emit(
           StateProductsError("Список не готов"),
@@ -106,12 +124,11 @@ class BlocProducts extends Bloc<EventBlocProducts, StateBlocProducts> {
     // !TODO EventFilterRating
     on<EventFilterRating>((event, emit) {
       emit(StateProductsLoading());
-      double rating = event.rating;
-      print("rating: $rating");
+      int selectedRate = event.rating.toInt();
+      String selectedCategory = event.categoty;
+      print("rating: $selectedRate");
 
-      if (categories != null && ratings != null) {
-        print("categories: $categories + rating: $ratings");
-      }
+      List<DataProducts> myList = globalSort(selectedCategory, selectedRate);
 
       // full.sort(((a, b) => a.rating!.rate!.compareTo(b.rating!.rate!)));
       // print(full);
@@ -123,37 +140,37 @@ class BlocProducts extends Bloc<EventBlocProducts, StateBlocProducts> {
       // List<DataProducts> myList =
       //     full.where((thing) => thing.rating!.rate!.compareTo(rating)).toList();
 
-      // myList.sort((DataProducts a, DataProducts b) {
-      //   int indexOfCarInA = a.rating!.rate.indexOf(categort);
-      //   int indexOfCarInB = b.category!.indexOf(categort);
-      //   if (indexOfCarInA < indexOfCarInB) {
-      //     return -1;
-      //   } else if (indexOfCarInA == indexOfCarInB) {}
-      //   if (a.id! <= b.id!) {
-      //     return -1;
-      //   }
-      //   return 1;
-      // });
-      // filtered.clear();
-      // filtered.addAll(full);
+      myList.sort((DataProducts a, DataProducts b) {
+        int indexOfCarInA = a.category!.indexOf(selectedCategory);
+        int indexOfCarInB = b.category!.indexOf(selectedCategory);
+        if (indexOfCarInA < indexOfCarInB) {
+          return -1;
+        } else if (indexOfCarInA == indexOfCarInB) {}
+        if (a.id! <= b.id!) {
+          return -1;
+        }
+        return 1;
+      });
+      filtered.clear();
+      filtered.addAll(myList);
 
-      // if (rating == 0.0) {
-      //   filtered.clear();
-      //   filtered.addAll(full);
-      //   emit(
-      //     StatePersonsData(data: filtered),
-      //   );
-      //   return;
-      // }
-      // if (filtered.isEmpty) {
-      //   emit(
-      //     StatePersonsError("Список не готов"),
-      //   );
-      //   return;
-      // }
-      // emit(
-      //   StatePersonsData(data: filtered),
-      // );
+      if (selectedRate == 0) {
+        filtered.clear();
+        filtered.addAll(full);
+        emit(
+          StateProductsData(data: filtered),
+        );
+        return;
+      }
+      if (filtered.isEmpty) {
+        emit(
+          StateProductsError("Список не готов"),
+        );
+        return;
+      }
+      emit(
+        StateProductsData(data: filtered),
+      );
     });
   }
 }
